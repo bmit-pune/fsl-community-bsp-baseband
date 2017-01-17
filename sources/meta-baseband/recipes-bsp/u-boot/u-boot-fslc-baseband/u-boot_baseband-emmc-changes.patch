@@ -1,0 +1,21 @@
+diff -uNr git/include/configs/mx6sabresd.h git_new/include/configs/mx6sabresd.h
+--- git/include/configs/mx6sabresd.h	2017-01-17 12:55:39.994687182 +0530
++++ git_new/include/configs/mx6sabresd.h	2016-11-17 11:24:55.300373000 +0530
+@@ -18,7 +18,7 @@
+ #define CONFIG_MACH_TYPE	3980
+ #define CONFIG_MXC_UART_BASE	UART1_BASE
+ #define CONFIG_CONSOLE_DEV		"ttymxc0"
+-#define CONFIG_MMCROOT			"/dev/mmcblk2p2"
++#define CONFIG_MMCROOT			"/dev/mmcblk3p2"
+ #define PHYS_SDRAM_SIZE		(1u * 1024 * 1024 * 1024)
+ 
+ #define CONFIG_SUPPORT_EMMC_BOOT /* eMMC specific */
+@@ -30,7 +30,7 @@
+ 
+ #define CONFIG_SYS_FSL_USDHC_NUM	3
+ #if defined(CONFIG_ENV_IS_IN_MMC)
+-#define CONFIG_SYS_MMC_ENV_DEV		1	/* SDHC3 */
++#define CONFIG_SYS_MMC_ENV_DEV		2	/* SDHC3 */
+ #endif
+ 
+ #define CONFIG_CMD_PCI

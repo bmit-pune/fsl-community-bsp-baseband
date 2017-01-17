@@ -1,0 +1,30 @@
+FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+SUMMARY = "Memtool utility for direct memory read/write ops"
+LICENSE = "GPLv2"
+LIC_FILES_CHKSUM = "file://COPYING;md5=12f884d2ae1ff87c09e5b7ccc2c4ca7e"
+
+SRC_URI = "file://memtool.c"
+
+S = "${WORKDIR}"
+
+EIM_SETTINGS = "file://eim_reg_setting.sh"
+PARTITION = "file://Partition.png"
+
+BBFILE_PRIORITY="99999999999"
+
+
+do_compile() {
+    ${CC} memtool.c -o memtool ${CFLAGS} 
+}
+
+do_install() {
+    install -d ${D}/unit_tests/
+    install -m 0755 memtool ${D}/unit_tests/
+
+eim_reg_setting.sh
+}
+
+do_install_append() {
+install -m 0755 ${EIM_SETTINGS} ${D}/home/root/
+install -m 0755 ${PARTITION} ${D}/home/root/
+}

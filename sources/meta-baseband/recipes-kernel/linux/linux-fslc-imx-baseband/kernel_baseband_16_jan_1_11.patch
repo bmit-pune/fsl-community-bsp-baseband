@@ -1,0 +1,543 @@
+diff -uNr kernel-source/arch/arm/boot/dts/imx6q-baseband-ldo.dts kernel-source_new/arch/arm/boot/dts/imx6q-baseband-ldo.dts
+--- kernel-source/arch/arm/boot/dts/imx6q-baseband-ldo.dts	1970-01-01 05:30:00.000000000 +0530
++++ kernel-source_new/arch/arm/boot/dts/imx6q-baseband-ldo.dts	2016-11-17 10:51:43.512395000 +0530
+@@ -0,0 +1,461 @@
++/*
++ * Copyright 2012 Freescale Semiconductor, Inc.
++ * Copyright 2011 Linaro Ltd.
++ *
++ * The code contained herein is licensed under the GNU General Public
++ * License. You may obtain a copy of the GNU General Public License
++ * Version 2 or later at the following locations:
++ *
++ * http://www.opensource.org/licenses/gpl-license.html
++ * http://www.gnu.org/copyleft/gpl.html
++ */
++
++#include "imx6q-sabresd.dts"
++
++/ {
++/delete-node/max8903@0; 
++/delete-node/hannstar_cabc;
++/delete-node/gpio-keys;
++/delete-node/sound;
++/delete-node/sound-hdmi;
++/delete-node/lcd@0;
++/delete-node/backlight;
++/delete-node/mipi_dsi_reset;
++/delete-node/audmux;
++/delete-node/hdmi_audio;
++/delete-node/hdmi_cec;
++/delete-node/hdmi_core;
++/delete-node/hdmi_video;
++/delete-node/ldb;
++/delete-node/mipi_csi;
++/delete-node/mipi_dsi;
++/delete-node/pwm1; 
++/delete-node/ssi2;
++
++
++leds {
++	compatible = "gpio-leds";
++	usbh1powen {
++		gpios = <&gpio1 0 0>;
++		default-state = "on";
++	};
++	usbotgpowen {
++		gpios = <&gpio4 15 0>;
++		default-state = "on";		
++	};
++/delete-node/charger-led;
++};
++
++
++
++
++};
++
++
++
++&pcie {
++	/delete-property/power-on-gpio;
++	/delete-property/reset-gpio;
++	status = "okay";
++};
++
++&iomuxc {
++	pinctrl-names = "default";
++	pinctrl-0 =<&pinctrl_hog_1>, <&pinctrl_hog_2>, <&pinctrl_hog_3>, <&pinctrl_hog_4>;
++
++	hog {
++
++//this one is for WP & CD GPIOs in usdhc3
++
++		pinctrl_hog_1: hoggrp-1 {
++			fsl,pins = <
++				
++                                MX6QDL_PAD_SD3_DAT4__GPIO7_IO01 0x80000000
++				MX6QDL_PAD_SD3_DAT5__GPIO7_IO00 0x80000000
++				   
++			>;
++		};
++
++	
++//this one is for escpi3
++
++		pinctrl_hog_2: hoggrp-2 {
++			fsl,pins = <
++				
++                                MX6QDL_PAD_DISP0_DAT3__ECSPI3_SS0 0x80000000
++				MX6QDL_PAD_DISP0_DAT4__ECSPI3_SS1 0x80000000
++				MX6QDL_PAD_DISP0_DAT5__ECSPI3_SS2 0x80000000
++				MX6QDL_PAD_DISP0_DAT6__ECSPI3_SS3 0x80000000
++				MX6QDL_PAD_DISP0_DAT7__ECSPI3_RDY 0x80000000
++				
++				
++			>;
++		};
++
++	
++//these gpios are connected to fpga.
++
++		pinctrl_hog_3: hoggrp-3 {
++			fsl,pins = <
++				
++                                MX6QDL_PAD_SD2_CMD__GPIO1_IO11 0x80000000
++				MX6QDL_PAD_SD2_CLK__GPIO1_IO10 0x80000000
++				MX6QDL_PAD_SD2_DAT3__GPIO1_IO12 0x80000000
++			>;
++		};
++
++//this one is for gpio & usb
++		pinctrl_hog_4: hoggrp-4 {
++			fsl,pins = <
++				MX6QDL_PAD_GPIO_0__GPIO1_IO00	0x80000000//usbh1 power enable
++				MX6QDL_PAD_GPIO_2__GPIO1_IO02   0x80000000//FPGA GPIO
++ 				MX6QDL_PAD_GPIO_3__USB_H1_OC    0x1b0b0
++				MX6QDL_PAD_GPIO_18__GPIO7_IO13  0x80000000//PMIC_INT_B
++				MX6QDL_PAD_SD1_CMD__GPIO1_IO18  0x100b1  // FPGA_GPIO
++				MX6QDL_PAD_NANDF_D0__GPIO2_IO00 0x80000000
++				MX6QDL_PAD_NANDF_D1__GPIO2_IO01 0x80000000
++				MX6QDL_PAD_NANDF_D2__GPIO2_IO02 0x80000000
++				MX6QDL_PAD_NANDF_D3__GPIO2_IO03 0x80000000
++				MX6QDL_PAD_NANDF_D4__GPIO2_IO04 0x80000000
++				MX6QDL_PAD_NANDF_D5__GPIO2_IO05 0x80000000
++				MX6QDL_PAD_NANDF_D6__GPIO2_IO06 0x80000000
++				//MX6QDL_PAD_KEY_COL1__GPIO4_IO08 0x80000000//Phy Reset
++				//MX6QDL_PAD_ENET_TX_EN__GPIO1_IO28 0x80000000 //phy interrupt
++
++                                
++			>;
++		};
++	};
++
++//this one is for emmc
++
++	usdhc4 {
++		pinctrl_usdhc4_3: usdhc4grp-3 {
++			fsl,pins = <
++				MX6QDL_PAD_SD4_CMD__SD4_CMD    0x17059
++				MX6QDL_PAD_SD4_CLK__SD4_CLK    0x10059
++				MX6QDL_PAD_SD4_DAT0__SD4_DATA0 0x17059
++				MX6QDL_PAD_SD4_DAT1__SD4_DATA1 0x17059
++				MX6QDL_PAD_SD4_DAT2__SD4_DATA2 0x17059
++				MX6QDL_PAD_SD4_DAT3__SD4_DATA3 0x17059
++				MX6QDL_PAD_SD4_DAT4__SD4_DATA4 0x17059
++				MX6QDL_PAD_SD4_DAT5__SD4_DATA5 0x17059
++				MX6QDL_PAD_SD4_DAT6__SD4_DATA6 0x17059
++				MX6QDL_PAD_SD4_DAT7__SD4_DATA7 0x17059
++				MX6QDL_PAD_NANDF_ALE__SD4_RESET	0x0b0b1
++			>;
++		};
++	};
++
++//this one is for uart1
++	bbuart1 {
++		pinctrl_bbuart1_1: bbuart1grp-1 {
++			fsl,pins = <
++				    MX6QDL_PAD_SD3_DAT6__UART1_RX_DATA 0x1b0b1
++				    MX6QDL_PAD_SD3_DAT7__UART1_TX_DATA 0x1b0b1
++			>;
++		};
++	};
++
++
++	bbuart2 {
++		pinctrl_bbuart2_1: bbuart2grp-1 {
++			fsl,pins = <
++				    MX6QDL_PAD_GPIO_8__UART2_RX_DATA 0x1b0b1
++				    MX6QDL_PAD_GPIO_7__UART2_TX_DATA 0x1b0b1
++			>;
++		};
++	};
++
++
++	bbuart4 {
++		pinctrl_bbuart4_1: bbuart4grp-1 {
++			fsl,pins = <
++				    MX6QDL_PAD_KEY_ROW0__UART4_RX_DATA 0x1b0b1
++				    MX6QDL_PAD_KEY_COL0__UART4_TX_DATA 0x1b0b1
++			>;
++		};
++	};
++
++
++
++	usbotg {
++		pinctrl_usbotg_3: usbotggrp-3 {
++			fsl,pins = <
++				MX6QDL_PAD_GPIO_1__USB_OTG_ID 0x17059
++				MX6QDL_PAD_KEY_COL4__USB_OTG_OC 0x17059
++				MX6QDL_PAD_KEY_ROW4__GPIO4_IO15	0X80000000
++			>;
++		};
++	};
++
++	weim {
++		pinctrl_weim_cs0_2: weim_cs0grp-2 {
++			fsl,pins = <
++				MX6QDL_PAD_EIM_CS1__EIM_CS1_B   0xb0b1/*custom add*/
++			>;
++		};
++
++		pinctrl_weim_nor_2: weim_norgrp-2 {
++			fsl,pins = <				
++				MX6QDL_PAD_EIM_OE__EIM_OE_B     0xb0b1
++				MX6QDL_PAD_EIM_RW__EIM_RW       0xb0b1
++				MX6QDL_PAD_EIM_WAIT__EIM_WAIT_B 0xb060
++				MX6QDL_PAD_EIM_LBA__EIM_LBA_B   0xb0b1 /*custom add*/
++				MX6QDL_PAD_EIM_BCLK__EIM_BCLK   0xb0b1 /*custom add*/
++				/* data */
++				MX6QDL_PAD_EIM_EB0__EIM_EB0_B  0x1b0b0 /*custom add*/
++				MX6QDL_PAD_EIM_EB1__EIM_EB1_B  0x1b0b0 /*custom add*/
++				MX6QDL_PAD_EIM_EB2__EIM_EB2_B  0x1b0b0 /*custom add*/
++				MX6QDL_PAD_EIM_EB3__EIM_EB3_B  0x1b0b0 /*custom add*/
++				MX6QDL_PAD_CSI0_DATA_EN__EIM_DATA00  0x1b0b0 /*custom add*/
++				MX6QDL_PAD_CSI0_VSYNC__EIM_DATA01 0x1b0b0    /*custom add*/
++				MX6QDL_PAD_CSI0_DAT4__EIM_DATA02  0x1b0b0    /*custom add*/
++				MX6QDL_PAD_CSI0_DAT5__EIM_DATA03  0x1b0b0    /*custom add*/
++				MX6QDL_PAD_CSI0_DAT6__EIM_DATA04  0x1b0b0    /*custom add*/
++				MX6QDL_PAD_CSI0_DAT7__EIM_DATA05  0x1b0b0    /*custom add*/
++				MX6QDL_PAD_CSI0_DAT8__EIM_DATA06  0x1b0b0    /*custom add*/
++				MX6QDL_PAD_CSI0_DAT9__EIM_DATA07  0x1b0b0    /*custom add*/
++				MX6QDL_PAD_CSI0_DAT12__EIM_DATA08 0x1b0b0    /*custom add*/
++				MX6QDL_PAD_CSI0_DAT13__EIM_DATA09 0x1b0b0    /*custom add*/
++				MX6QDL_PAD_CSI0_DAT14__EIM_DATA10 0x1b0b0    /*custom add*/
++				MX6QDL_PAD_CSI0_DAT15__EIM_DATA11 0x1b0b0    /*custom add*/
++				MX6QDL_PAD_CSI0_DAT16__EIM_DATA12 0x1b0b0    /*custom add*/
++				MX6QDL_PAD_CSI0_DAT17__EIM_DATA13 0x1b0b0    /*custom add*/
++				MX6QDL_PAD_CSI0_DAT18__EIM_DATA14 0x1b0b0    /*custom add*/
++				MX6QDL_PAD_CSI0_DAT19__EIM_DATA15 0x1b0b0    /*custom add*/
++				MX6QDL_PAD_EIM_D16__EIM_DATA16 0x1b0b0
++				MX6QDL_PAD_EIM_D17__EIM_DATA17 0x1b0b0
++				MX6QDL_PAD_EIM_D18__EIM_DATA18 0x1b0b0
++				MX6QDL_PAD_EIM_D19__EIM_DATA19 0x1b0b0
++				MX6QDL_PAD_EIM_D20__EIM_DATA20 0x1b0b0
++				MX6QDL_PAD_EIM_D21__EIM_DATA21 0x1b0b0
++				MX6QDL_PAD_EIM_D22__EIM_DATA22 0x1b0b0
++				MX6QDL_PAD_EIM_D23__EIM_DATA23 0x1b0b0
++				MX6QDL_PAD_EIM_D24__EIM_DATA24 0x1b0b0
++				MX6QDL_PAD_EIM_D25__EIM_DATA25 0x1b0b0
++				MX6QDL_PAD_EIM_D26__EIM_DATA26 0x1b0b0
++				MX6QDL_PAD_EIM_D27__EIM_DATA27 0x1b0b0
++				MX6QDL_PAD_EIM_D28__EIM_DATA28 0x1b0b0
++				MX6QDL_PAD_EIM_D29__EIM_DATA29 0x1b0b0
++				MX6QDL_PAD_EIM_D30__EIM_DATA30 0x1b0b0
++				MX6QDL_PAD_EIM_D31__EIM_DATA31 0x1b0b0
++				/* address */
++				MX6QDL_PAD_EIM_A25__EIM_ADDR25 0xb0b1 /*custom add*/
++				MX6QDL_PAD_EIM_A24__EIM_ADDR24 0xb0b1 /*custom add*/
++				MX6QDL_PAD_EIM_A23__EIM_ADDR23 0xb0b1
++				MX6QDL_PAD_EIM_A22__EIM_ADDR22 0xb0b1
++				MX6QDL_PAD_EIM_A21__EIM_ADDR21 0xb0b1
++				MX6QDL_PAD_EIM_A20__EIM_ADDR20 0xb0b1
++				MX6QDL_PAD_EIM_A19__EIM_ADDR19 0xb0b1
++				MX6QDL_PAD_EIM_A18__EIM_ADDR18 0xb0b1
++				MX6QDL_PAD_EIM_A17__EIM_ADDR17 0xb0b1
++				MX6QDL_PAD_EIM_A16__EIM_ADDR16 0xb0b1
++				MX6QDL_PAD_EIM_DA15__EIM_AD15  0xb0b1
++				MX6QDL_PAD_EIM_DA14__EIM_AD14  0xb0b1
++				MX6QDL_PAD_EIM_DA13__EIM_AD13  0xb0b1
++				MX6QDL_PAD_EIM_DA12__EIM_AD12  0xb0b1
++				MX6QDL_PAD_EIM_DA11__EIM_AD11  0xb0b1
++				MX6QDL_PAD_EIM_DA10__EIM_AD10  0xb0b1
++				MX6QDL_PAD_EIM_DA9__EIM_AD09   0xb0b1
++				MX6QDL_PAD_EIM_DA8__EIM_AD08   0xb0b1
++				MX6QDL_PAD_EIM_DA7__EIM_AD07   0xb0b1
++				MX6QDL_PAD_EIM_DA6__EIM_AD06   0xb0b1
++				MX6QDL_PAD_EIM_DA5__EIM_AD05   0xb0b1
++				MX6QDL_PAD_EIM_DA4__EIM_AD04   0xb0b1
++				MX6QDL_PAD_EIM_DA3__EIM_AD03   0xb0b1
++				MX6QDL_PAD_EIM_DA2__EIM_AD02   0xb0b1
++				MX6QDL_PAD_EIM_DA1__EIM_AD01   0xb0b1
++				MX6QDL_PAD_EIM_DA0__EIM_AD00   0xb0b1
++			>;
++		};
++	};
++};
++
++&mxcfb1 {
++	status = "disabled";
++};
++
++&mxcfb2 {
++	status = "disabled";
++};
++
++&mxcfb3 {
++	status = "disabled";
++};
++
++&mxcfb4 {
++	status = "disabled";
++};
++
++&cpu0 {
++	arm-supply = <&reg_arm>;
++	soc-supply = <&reg_soc>;
++	pu-supply = <&reg_pu>; /* use pu_dummy if VDDSOC share with VDDPU */
++};
++
++&gpc {
++	fsl,ldo-bypass = <0>; /* use ldo-bypass, u-boot will check it and configure */
++	fsl,wdog-reset = <1>; /* watchdog select of reset source */
++	pu-supply = <&reg_pu>; /* ldo-bypass:use pu_dummy if VDDSOC share with VDDPU */
++};
++
++&usbotg {
++	vbus-supply = <&reg_usb_otg_vbus>;
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_usbotg_3>;
++	disable-over-current;
++	status = "okay";
++};
++
++&i2c1 {
++        status = "disabled";
++};
++
++/*custom-change*/
++&i2c2 {
++        status = "disabled";
++};
++
++&i2c3 {
++        status = "disabled";
++};
++
++&pcie {
++	status = "disabled";
++};
++
++&uart1 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_bbuart1_1>;
++	status = "okay";
++};
++
++&uart2 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_bbuart2_1>;
++	status = "okay";
++};
++
++
++
++&uart4 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_bbuart4_1>;
++	status = "okay";
++
++};
++
++
++
++&ecspi1 {
++
++	status = "okay";
++};
++
++
++&usdhc2 {
++	status = "disabled";
++};
++
++&usdhc3 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_usdhc3>;
++	cd-gpios = <&gpio7 0 0>;
++	wp-gpios = <&gpio7 1 0>;
++	no-1-8-v;
++	keep-power-in-suspend;
++	enable-sdio-wakeup;
++	status = "okay";
++};
++
++
++
++&usdhc4 {
++        pinctrl-names = "default";
++        pinctrl-0 = <&pinctrl_usdhc4_3>;
++        bus-width = <8>;
++        non-removable;
++        no-1-8-v;
++	keep-power-in-suspend;
++        status = "okay";
++	
++};
++
++/*
++&fec {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_enet>;
++	phy-mode = "rgmii";
++	status = "okay";
++	phy-reset-gpios = <&gpio4 8 0>;
++	
++};
++*/
++&fec {
++	status = "okay";	
++};
++
++&usbh1 {
++	status = "okay";
++};
++
++/*
++&ecspi3 {
++	fsl,spi-num-chipselects = <1>;
++	cs-gpios = <&gpio4 24 0>;
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_ecspi3_1>;
++	status = "disabled";
++
++	adc: adc9364@0 {
++		compatible="spidev";
++		#address-cells = <1>;
++		#size-cells = <1>;
++		spi-max-frequency = <20000000>;
++		reg = <0>;
++	};
++};
++*/
++&ecspi3 {
++	status = "disabled";
++
++};
++
++&mlb {
++	status="disabled";
++};
++
++
++
++&audmux {
++	status="disabled";
++};
++	
++
++&weim {
++		compatible = "fsl,imx6q-weim";
++		reg = <0x021b8000 0x4000>;//ok for fpga
++		clocks = <&clks 196>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_weim_nor_2 &pinctrl_weim_cs0_2>;  /*FPGA*///ok for fpga
++		#address-cells = <2>;//see below:1 cell for 4 hex digits
++		#size-cells = <1>;
++         	ranges = <1 0 0x08000000 0x03FF>;  /*For FPGA */
++		status = "okay";
++
++		nor@0,0 {
++			compatible ="mtd-ram";  /* FOR FPGA*/
++			reg = <0 0 0x08000000>; /*For FPGA*/
++			#address-cells = <1>;
++			#size-cells = <1>;
++			bank-width = <4>;/*FOR FPGA*/
++			fsl,weim-cs-timing = <0x00630081 0x00000001 0x1c020000
++					0x00000000 0x0804A240 0x00000000>; /* For FPGA */
++
++
++            };
++	};
++
++
++
+diff -uNr kernel-source/arch/arm/boot/dts/imx6qdl-sabresd.dtsi kernel-source_new/arch/arm/boot/dts/imx6qdl-sabresd.dtsi
+--- kernel-source/arch/arm/boot/dts/imx6qdl-sabresd.dtsi	2017-01-16 12:53:34.299986029 +0530
++++ kernel-source_new/arch/arm/boot/dts/imx6qdl-sabresd.dtsi	2016-11-17 10:51:02.840396000 +0530
+@@ -291,7 +291,7 @@
+ 		reg = <0>;
+ 	};
+ };
+-
++/*
+ &fec {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_enet>;
+@@ -300,6 +300,18 @@
+ 	fsl,magic-packet;
+ 	status = "okay";
+ };
++*/
++
++
++&fec {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_enet &pinctrl_enet_irq>;
++	phy-mode = "rgmii";
++	status = "okay";
++	fsl,magic-packet;
++	phy-reset-gpios = <&gpio4 8 0>;
++	/*gpio_16 is not used*/
++};
+ 
+ &i2c1 {
+ 	clock-frequency = <100000>;
+@@ -586,9 +598,9 @@
+ 
+ 		pinctrl_ecspi1: ecspi1grp {
+ 			fsl,pins = <
+-				MX6QDL_PAD_KEY_COL1__ECSPI1_MISO	0x100b1
+-				MX6QDL_PAD_KEY_ROW0__ECSPI1_MOSI	0x100b1
+-				MX6QDL_PAD_KEY_COL0__ECSPI1_SCLK	0x100b1
++				MX6QDL_PAD_KEY_COL1__ECSPI1_MISO	0x100b1 //This is PHY Reset still this pinmux required-unclear?
++				//MX6QDL_PAD_KEY_ROW0__ECSPI1_MOSI	0x100b1
++				//MX6QDL_PAD_KEY_COL0__ECSPI1_SCLK	0x100b1
+ 			>;
+ 		};
+ 
+@@ -609,13 +621,16 @@
+ 				MX6QDL_PAD_RGMII_RD2__RGMII_RD2		0x1b0b0
+ 				MX6QDL_PAD_RGMII_RD3__RGMII_RD3		0x1b0b0
+ 				MX6QDL_PAD_RGMII_RX_CTL__RGMII_RX_CTL	0x1b0b0
+-				MX6QDL_PAD_GPIO_16__ENET_REF_CLK	0x4001b0a8
++				//MX6QDL_PAD_GPIO_16__ENET_REF_CLK	0x4001b0a8
++				//MX6QDL_PAD_ENET_TX_EN__GPIO1_IO28	0x80000000  /*custom add*/
+ 			>;
+ 		};
+ 
+ 		pinctrl_enet_irq: enetirqgrp {
+ 			fsl,pins = <
+-				MX6QDL_PAD_GPIO_6__ENET_IRQ		0x000b1
++				//MX6QDL_PAD_GPIO_6__ENET_IRQ		0x000b1
++				MX6QDL_PAD_KEY_COL1__GPIO4_IO08 0x80000000//Phy Reset
++				MX6QDL_PAD_ENET_TX_EN__GPIO1_IO28 0x80000000 //phy interrupt
+ 			>;
+ 		};
+ 
+@@ -772,10 +787,10 @@
+ 				MX6QDL_PAD_SD3_DAT1__SD3_DATA1		0x17059
+ 				MX6QDL_PAD_SD3_DAT2__SD3_DATA2		0x17059
+ 				MX6QDL_PAD_SD3_DAT3__SD3_DATA3		0x17059
+-				MX6QDL_PAD_SD3_DAT4__SD3_DATA4		0x17059
+-				MX6QDL_PAD_SD3_DAT5__SD3_DATA5		0x17059
+-				MX6QDL_PAD_SD3_DAT6__SD3_DATA6		0x17059
+-				MX6QDL_PAD_SD3_DAT7__SD3_DATA7		0x17059
++				//MX6QDL_PAD_SD3_DAT4__SD3_DATA4		0x17059
++				//MX6QDL_PAD_SD3_DAT5__SD3_DATA5		0x17059
++				//MX6QDL_PAD_SD3_DAT6__SD3_DATA6		0x17059
++				//MX6QDL_PAD_SD3_DAT7__SD3_DATA7		0x17059
+ 			>;
+ 		};
+ 
