@@ -1,4 +1,6 @@
 # fsl-community-bsp-baseband
+Author:piyush.ashtikar@bitmapper.com / piyu4391@gmail.com
+
 Repository for fsl-community-bsp-baseband , BMIT Baseband-Rev2 board.
 
 FSL Community BSP
@@ -23,8 +25,7 @@ At the end of the commands you have every metadata you need to start work with.
 
 To start a simple image build:
 
-$: source ./setup-environment build
-$: bitbake bmit-baseband-image
+Read README file in same directory as this README.md file.
 
 You can use any directory to host your build.
 

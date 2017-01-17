@@ -4,8 +4,7 @@ meta-baseband is layer for BMIT baseband-v2 board.
 Author: piyush.ashtikar@bitmapper.com / piyu4391@gmail.com
 
 =============================================================
-echo "README first of all: ./first-run.sh"
-echo "Run"
+echo "README: Run"
 echo "source setup-environment build"
 echo "Then again source setup-environment build ,when asked"
 echo "imx6qbaseband will be set as default board"
