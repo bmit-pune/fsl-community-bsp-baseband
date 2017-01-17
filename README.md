@@ -7,23 +7,9 @@ FSL Community BSP
 
 To get the BSP you need to have repo installed and use it as:
 
-Install the repo utility:
+Clone the setup to your home directory
 
-$: mkdir ~/bin
-$: curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
-$: chmod a+x ~/bin/repo
-
-Download the BSP source:
-
-$: PATH=${PATH}:~/bin
-
-$: mkdir fsl-community-bsp-baseband
-
-$: cd fsl-community-bsp-baseband
-
-$: repo init -u https://github.com/bmit-pune/fsl-community-bsp-baseband.git -b jethro
-
-$: repo sync
+git clone https://github.com/bmit-pune/fsl-community-bsp-baseband.git -b jethro
 
 At the end of the commands you have every metadata you need to start work with.
 
