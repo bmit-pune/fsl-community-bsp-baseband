@@ -1,0 +1,33 @@
+BMIT Baseband BSP
+==================
+meta-baseband is layer for BMIT baseband-v2 board.
+Author: piyush.ashtikar@bitmapper.com / piyu4391@gmail.com
+
+=============================================================
+echo "README: Run"
+echo "source setup-environment build"
+echo "Then again source setup-environment build ,when asked"
+echo "imx6qbaseband will be set as default board"
+echo "Run: bitbake bmit-baseband-image, to build image for sd-card"
+echo ""
+echo ""
+echo "To build emmc image set machine as imx6qbaseband-emmc in local.conf"
+echo "Then run bitbake bmit-baseband-emmc-image"
+echo ""
+echo ""
+echo ""
+echo ""
+echo "To burn image in sd-card or emmc Run:"
+echo "sudo dd bs=4M if=bmit-baseband-image-imx6qbaseband-number.rootfs.sdcard of=/dev/sdx"
+echo "PS:If you are using board 2, uncomment line :"
+echo "SRC_URI_append_mx6 +=  file://u-boot-baseband-board-2-cfg-settings.patch"
+echo "In file u-boot-fslc-baseband_%.bbappend"
+echo "Mail any queries: piyush.ashtikar@bitmapper.com / piyu4391@gmail.com "
+
+SD-CARD
+MACHINE=imx6qbaseband (local.conf)
+bitbake bmit-baseband-image
+
+EMMC
+MACHINE=imx6qbaseband-emmc (local.conf)
+bitbake bmit-baseband-emmc-image
