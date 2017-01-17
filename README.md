@@ -16,9 +16,13 @@ $: chmod a+x ~/bin/repo
 Download the BSP source:
 
 $: PATH=${PATH}:~/bin
+
 $: mkdir fsl-community-bsp-baseband
+
 $: cd fsl-community-bsp-baseband
-$: repo init -u https://github.com/bmit-pune/fsl-community-bsp-baseband.git -b master
+
+$: repo init -u https://github.com/bmit-pune/fsl-community-bsp-baseband.git -b jethro
+
 $: repo sync
 
 At the end of the commands you have every metadata you need to start work with.
