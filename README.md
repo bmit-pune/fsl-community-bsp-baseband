@@ -1,6 +1,8 @@
 # fsl-community-bsp-baseband
 Author:piyush.ashtikar@bitmapper.com / piyu4391@gmail.com
 
+Note:Use Jethro branch of same repo for latest build......
+
 Repository for fsl-community-bsp-baseband , BMIT Baseband-Rev2 board.
 
 FSL Community BSP
