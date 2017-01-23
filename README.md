@@ -7,6 +7,8 @@ FSL Community BSP
 
 Procedure:
 
+sudo apt-get install git-core
+
 Clone the setup to your home directory
 
 git clone https://github.com/bmit-pune/fsl-community-bsp-baseband.git -b jethro
