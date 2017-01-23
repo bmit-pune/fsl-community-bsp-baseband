@@ -5,7 +5,7 @@ Repository for fsl-community-bsp-baseband , BMIT Baseband-Rev2 board.
 
 FSL Community BSP
 
-To get the BSP you need to have repo installed and use it as:
+Procedure:
 
 Clone the setup to your home directory
 
